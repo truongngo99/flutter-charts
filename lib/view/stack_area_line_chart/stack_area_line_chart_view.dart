@@ -1,27 +1,23 @@
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chart_exam/data/post/api.dart';
-import 'package:flutter_chart_exam/data/respose/covid/properti.dart';
-import 'package:flutter_chart_exam/data/respose/ordinal_sales.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter_chart_exam/data/respose/timeline.dart';
-import 'package:flutter_chart_exam/view/bar_chart/bar_chart_bloc.dart';
-import 'package:flutter_chart_exam/view/bar_chart/bar_chart_event.dart';
-import 'package:flutter_chart_exam/view/bar_chart/bar_chart_state.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_bloc.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_state.dart';
 import 'package:teq_flutter_core/teq_flutter_core.dart';
 
-class BarChartStackView extends StatefulWidget {
+class StackAreaLineChartView extends StatefulWidget {
   final String title;
-  BarChartStackView({Key? key, required this.title}) : super(key: key);
+  StackAreaLineChartView({Key? key, required this.title}) : super(key: key);
 
   @override
-  _BarChartStackViewState createState() => _BarChartStackViewState();
+  _StackAreaLineChartViewState createState() => _StackAreaLineChartViewState();
 }
 
-class _BarChartStackViewState extends BaseBlocState<BarChartStackView> {
+class _StackAreaLineChartViewState
+    extends BaseBlocState<StackAreaLineChartView> {
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
       providers: [BlocProvider(create: (context) => bloc as BarChartStackBloc)],
@@ -48,19 +44,21 @@ class _BarChartStackViewState extends BaseBlocState<BarChartStackView> {
     listaskVN = listaskVN.reversed.toList();
     listaskCam = listaskCam.reversed.toList();
 
-    List<charts.Series<FetchData, String>> timeline = [
+    List<charts.Series<FetchData, int>> timeline = [
       charts.Series(
-        id: 'Campuchia',
-        data: listaskCam,
-        domainFn: (FetchData timeline, _) => timeline.date,
+        id: 'VN',
+        data: listaskVN,
+        domainFn: (FetchData timeline, _) =>
+            int.parse(timeline.date.substring(8, 10)),
         measureFn: (FetchData timeline, _) => timeline.value,
         colorFn: (FetchData timeline, _) => timeline.barColor,
         labelAccessorFn: (FetchData row, _) => '${row.value}',
       ),
       charts.Series(
-        id: 'VN',
-        data: listaskVN,
-        domainFn: (FetchData timeline, _) => timeline.date,
+        id: 'Campuchia',
+        data: listaskCam,
+        domainFn: (FetchData timeline, _) =>
+            int.parse(timeline.date.substring(8, 10)),
         measureFn: (FetchData timeline, _) => timeline.value,
         colorFn: (FetchData timeline, _) => timeline.barColor,
         labelAccessorFn: (FetchData row, _) => '${row.value}',
@@ -91,18 +89,22 @@ class _BarChartStackViewState extends BaseBlocState<BarChartStackView> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Container(
-                            height: 10,
-                            width: 10,
-                            decoration: BoxDecoration(color: Colors.blue),
+                            width: 20,
+                            child: Divider(
+                              color: Colors.blue,
+                              thickness: 5,
+                            ),
                           ),
                           Text(' Việt Nam'),
                           SizedBox(
                             width: 20,
                           ),
                           Container(
-                            height: 10,
-                            width: 10,
-                            decoration: BoxDecoration(color: Colors.blueGrey),
+                            width: 20,
+                            child: Divider(
+                              color: Colors.blueGrey,
+                              thickness: 5,
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 8.0),
@@ -111,25 +113,24 @@ class _BarChartStackViewState extends BaseBlocState<BarChartStackView> {
                         ],
                       ),
                       Expanded(
-                        child: charts.BarChart(
+                        child: charts.LineChart(
                           timeline,
                           animate: true,
+                          defaultRenderer: new charts.LineRendererConfig(
+                              stacked: true, includeArea: true),
                           //vertical: false,
-                          // behaviors: [
-                          //   charts.DatumLegend(
-                          //     insideJustification: charts.InsideJustification.topEnd,
-                          //     horizontalFirst: false,
-                          //     desiredMaxRows: 4,
-                          //     cellPadding: EdgeInsets.only(right: 4.0, bottom: 4.0),
-                          //     entryTextStyle: charts.TextStyleSpec(
-                          //       color: charts.MaterialPalette.purple.shadeDefault,
-                          //     ),
-                          //   ),
-                          // ],
-                          barGroupingType: charts.BarGroupingType.stacked,
-                          domainAxis: charts.OrdinalAxisSpec(
-                              renderSpec: charts.SmallTickRendererSpec(
-                                  labelRotation: 80)),
+                          behaviors: [
+                            charts.ChartTitle('Date',
+                                behaviorPosition:
+                                    charts.BehaviorPosition.bottom),
+                            charts.ChartTitle('Death',
+                                behaviorPosition:
+                                    charts.BehaviorPosition.start),
+                          ],
+
+                          // domainAxis: charts.OrdinalAxisSpec(
+                          //     renderSpec: charts.SmallTickRendererSpec(
+                          //         labelRotation: 80)),
                         ),
                       ),
                     ],
