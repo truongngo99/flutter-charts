@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
-class Task {
-  final String task;
-  final double value;
-  Color colorValue;
+class DataModel {
+  final String catergory;
+  final int? value;
+  final charts.Color barColor;
 
-  Task({
-    required this.task,
-    required this.value,
-    required this.colorValue,
-  });
+  DataModel(this.catergory, this.value, this.barColor);
 }

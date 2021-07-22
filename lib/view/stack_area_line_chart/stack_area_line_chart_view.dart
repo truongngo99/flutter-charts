@@ -27,14 +27,14 @@ class _StackAreaLineChartViewState
   Widget _buildBody(BuildContext context, BarChartStackState state) {
     List<FetchData> listaskVN = [];
     List<FetchData> listaskCam = [];
-    state.covidModelVN?.All.dates.forEach((key, value) {
+    state.covidModelVN?.All.dates?.forEach((key, value) {
       if (int.parse(key.substring(5, 7)) == 7 &&
           int.parse(key.substring(0, 4)) == 2021) {
         listaskVN.add(
             FetchData(key, value, charts.ColorUtil.fromDartColor(Colors.blue)));
       }
     });
-    state.covidModelCam?.All.dates.forEach((key, value) {
+    state.covidModelCam?.All.dates?.forEach((key, value) {
       if (int.parse(key.substring(5, 7)) == 7 &&
           int.parse(key.substring(0, 4)) == 2021) {
         listaskCam.add(FetchData(

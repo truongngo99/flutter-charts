@@ -12,4 +12,12 @@ class ApiImpl extends BaseAPI with Api {
   Future<CovidModel> getDeathsCampuchia() async {
     return CovidModel.fromJson(await sendApiRequest(getDeathCampuchia));
   }
+
+  @override
+  Future<CovidModel> getDataCountry(String country) async {
+    return CovidModel.fromJson(
+        await sendApiRequest(getCountry, queryParameters: {
+      'country': country,
+    }));
+  }
 }

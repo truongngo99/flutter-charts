@@ -34,14 +34,14 @@ class _PieChartBasicState extends BaseBlocState<PieChartBasic> {
   Widget _buildBody(BuildContext context, BarChartState state) {
     List<FetchData> listask = [];
     List<FetchData> listask2 = [];
-    state.covidModel?.All.dates.forEach((key, value) {
+    state.covidModel?.All.dates?.forEach((key, value) {
       if (value > 100) {
         listask.add(
             FetchData(key, value, charts.ColorUtil.fromDartColor(Colors.blue)));
       }
     });
     listask = listask.reversed.toList();
-    state.covidModel?.All.dates.forEach((key, value) {
+    state.covidModel?.All.dates?.forEach((key, value) {
       if (value > 200) {
         listask2.add(
             FetchData(key, value, charts.ColorUtil.fromDartColor(Colors.blue)));

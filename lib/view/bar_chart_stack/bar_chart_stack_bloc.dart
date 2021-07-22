@@ -13,7 +13,7 @@ class BarChartStackBloc extends BaseBloc<BarChartStackState> {
       yield state.copyWith(isLoading: true);
       var resultVN = await api.getDataCovid();
       var resultCam = await api.getDeathsCampuchia();
-      print(resultCam.All.dates.length);
+
       yield state.copyWith(
           isLoading: false, covidModelVN: resultVN, covidModelCam: resultCam);
     }

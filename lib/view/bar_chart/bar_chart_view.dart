@@ -27,7 +27,7 @@ class _BarChartViewState extends BaseBlocState<BarChartView> {
 
   Widget _buildBody(BuildContext context, BarChartState state) {
     List<FetchData> listask = [];
-    state.covidModel?.All.dates.forEach((key, value) {
+    state.covidModel?.All.dates?.forEach((key, value) {
       if (int.parse(key.substring(5, 7)) == 7 &&
           int.parse(key.substring(0, 4)) == 2021) {
         listask.add(
@@ -76,7 +76,7 @@ class _BarChartViewState extends BaseBlocState<BarChartView> {
                           domainAxis: charts.OrdinalAxisSpec(
                               renderSpec: charts.SmallTickRendererSpec(
                                   labelRotation: 80)),
-                          //vertical: false,
+                          // vertical: false,
                           //animationDuration: Duration(seconds: 2),
                           behaviors: [
                             new charts.ChartTitle('Người chết',

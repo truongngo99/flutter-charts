@@ -26,7 +26,7 @@ class _GroupBarChartViewState extends BaseBlocState<GroupBarChartView> {
   Widget _buildBody(BuildContext context, BarChartStackState state) {
     List<FetchData> listaskVN = [];
     List<FetchData> listaskLao = [];
-    state.covidModelVN?.All.dates.forEach((key, value) {
+    state.covidModelVN?.All.dates?.forEach((key, value) {
       if (int.parse(key.substring(5, 7)) == 7 &&
           int.parse(key.substring(0, 4)) == 2021 &&
           int.parse(key.substring(8, 10)) > 15) {
@@ -34,7 +34,7 @@ class _GroupBarChartViewState extends BaseBlocState<GroupBarChartView> {
             FetchData(key, value, charts.ColorUtil.fromDartColor(Colors.blue)));
       }
     });
-    state.covidModelCam?.All.dates.forEach((key, value) {
+    state.covidModelCam?.All.dates?.forEach((key, value) {
       if (int.parse(key.substring(5, 7)) == 7 &&
           int.parse(key.substring(0, 4)) == 2021 &&
           int.parse(key.substring(8, 10)) > 15) {
@@ -75,6 +75,9 @@ class _GroupBarChartViewState extends BaseBlocState<GroupBarChartView> {
                 child: Card(
                   child: Column(
                     children: [
+                      Text(
+                          'Death toll in COVID-19 between Vietnam and Cambodia in July',
+                          style: TextStyle(color: Colors.red, fontSize: 18)),
                       Expanded(
                         child: charts.BarChart(
                           timeline,

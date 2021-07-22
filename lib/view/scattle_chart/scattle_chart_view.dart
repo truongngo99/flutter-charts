@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chart_exam/data/post/api.dart';
-
+import 'package:flutter_chart_exam/data/respose/covid/features.dart';
+import 'package:flutter_chart_exam/data/respose/covid/properti.dart';
+import 'package:flutter_chart_exam/data/respose/ordinal_sales.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter_chart_exam/data/respose/timeline.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_bloc.dart';
@@ -10,15 +12,15 @@ import 'package:flutter_chart_exam/view/bar_chart/bar_chart_state.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:teq_flutter_core/teq_flutter_core.dart';
 
-class TimeLineChartBasic extends StatefulWidget {
+class ScatleChartView extends StatefulWidget {
   final String title;
-  TimeLineChartBasic({Key? key, required this.title}) : super(key: key);
+  ScatleChartView({Key? key, required this.title}) : super(key: key);
 
   @override
-  _TimeLineChartBasicState createState() => _TimeLineChartBasicState();
+  _ScatleChartViewState createState() => _ScatleChartViewState();
 }
 
-class _TimeLineChartBasicState extends BaseBlocState<TimeLineChartBasic> {
+class _ScatleChartViewState extends BaseBlocState<ScatleChartView> {
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
       providers: [BlocProvider(create: (context) => bloc as BarChartBloc)],
@@ -27,24 +29,24 @@ class _TimeLineChartBasicState extends BaseBlocState<TimeLineChartBasic> {
   Widget _buildBody(BuildContext context, BarChartState state) {
     List<FetchData> listask = [];
     state.covidModel?.All.dates?.forEach((key, value) {
-      // if (int.parse(key.substring(0, 4)) == 2021) {
-      listask.add(
-          FetchData(key, value, charts.ColorUtil.fromDartColor(Colors.blue)));
-      // }
+      if (int.parse(key.substring(5, 7)) == 7 &&
+          int.parse(key.substring(0, 4)) == 2021) {
+        listask.add(
+            FetchData(key, value, charts.ColorUtil.fromDartColor(Colors.blue)));
+      }
     });
     listask = listask.reversed.toList();
     print(listask.length);
 
-    List<charts.Series<FetchData, DateTime>> timeline = [
+    List<charts.Series<FetchData, String>> timeline = [
       charts.Series(
         id: 'Subscribes',
         data: listask,
-        domainFn: (FetchData timeline, _) =>
-            DateTime.parse(timeline.date.replaceAll('-', '')),
+        domainFn: (FetchData timeline, _) => timeline.date,
         measureFn: (FetchData timeline, _) => timeline.value,
         // colorFn: (Task timeline, _) =>
         //     charts.ColorUtil.fromDartColor(timeline.colorValue),
-        //labelAccessorFn: (Properties row, _) => '${row.death}',
+        labelAccessorFn: (FetchData row, _) => '${row.value}',
       )
     ];
     return Scaffold(
@@ -56,43 +58,28 @@ class _TimeLineChartBasicState extends BaseBlocState<TimeLineChartBasic> {
             ? CircularProgressIndicator()
             : Container(
                 height: double.infinity,
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
                 child: Card(
                   child: Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'The number of deaths from COVID-19 in Vietnam from 2020',
+                          'The number of deaths from COVID-19 in Vietnam in July',
                           style: TextStyle(color: Colors.red, fontSize: 18),
                         ),
                       ),
                       Expanded(
-                        child: charts.TimeSeriesChart(
-                          timeline,
-                          animate: true,
-
-                          //animationDuration: Duration(seconds: 2),
-                          behaviors: [
-                            // charts.DatumLegend(
-                            //   outsideJustification:
-                            //       charts.OutsideJustification.endDrawArea,
-                            //   horizontalFirst: false,
-                            //   desiredMaxRows: 2,
-                            //   cellPadding:
-                            //       EdgeInsets.only(right: 4.0, bottom: 4.0),
-                            //   entryTextStyle: charts.TextStyleSpec(
-                            //     color: charts.MaterialPalette.purple.shadeDefault,
-                            //   ),
-                            // ),
-
-                            new charts.ChartTitle('Số người chết',
-                                behaviorPosition: charts.BehaviorPosition.start,
-                                titleOutsideJustification:
-                                    charts.OutsideJustification.middleDrawArea),
+                        child: SfCartesianChart(
+                          primaryXAxis: DateTimeAxis(),
+                          series: <ChartSeries>[
+                            ScatterSeries<FetchData, DateTime>(
+                                dataSource: listask,
+                                xValueMapper: (FetchData data, _) =>
+                                    DateTime.parse(
+                                        data.date.replaceAll('-', '')),
+                                yValueMapper: (FetchData data, _) => data.value)
                           ],
-                          // barRendererDecorator: charts.BarLabelDecorator(
-                          //     outsideLabelStyleSpec: charts.TextStyleSpec()),
                         ),
                       ),
                     ],
