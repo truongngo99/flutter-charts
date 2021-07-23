@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chart_exam/data/post/api.dart';
-import 'package:flutter_chart_exam/data/respose/timeline.dart';
+import 'package:flutter_chart_exam/data/respose/fetch_data.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_bloc.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_state.dart';
@@ -42,6 +42,7 @@ class _GroupBarChartViewState extends BaseBlocState<GroupBarChartView> {
             key, value, charts.ColorUtil.fromDartColor(Colors.green)));
       }
     });
+    listaskVN = listaskVN.reversed.toList();
     listaskLao = listaskLao.reversed.toList();
 
     List<charts.Series<FetchData, String>> timeline = [
@@ -75,9 +76,35 @@ class _GroupBarChartViewState extends BaseBlocState<GroupBarChartView> {
                 child: Card(
                   child: Column(
                     children: [
-                      Text(
-                          'Death toll in COVID-19 between Vietnam and Cambodia in July',
-                          style: TextStyle(color: Colors.red, fontSize: 18)),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            'Death toll in COVID-19 between Vietnam and Cambodia in July',
+                            style: TextStyle(color: Colors.red, fontSize: 18)),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            height: 10,
+                            width: 10,
+                            decoration: BoxDecoration(color: Colors.blue),
+                          ),
+                          Text(' Việt Nam'),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Container(
+                            height: 10,
+                            width: 10,
+                            decoration: BoxDecoration(color: Colors.green),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Text(' Campuchia'),
+                          ),
+                        ],
+                      ),
                       Expanded(
                         child: charts.BarChart(
                           timeline,

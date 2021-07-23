@@ -2,7 +2,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chart_exam/data/post/api.dart';
-import 'package:flutter_chart_exam/data/respose/timeline.dart';
+import 'package:flutter_chart_exam/data/respose/fetch_data.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_bloc.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_state.dart';

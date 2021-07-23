@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chart_exam/data/post/api.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter_chart_exam/data/respose/timeline.dart';
+import 'package:flutter_chart_exam/data/respose/fetch_data.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_bloc.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_state.dart';
@@ -148,7 +148,7 @@ class _PieChartBasicState extends BaseBlocState<PieChartBasic> {
                                 dataSource: listask2,
                                 xValueMapper: (FetchData data, _) => data.date,
                                 yValueMapper: (FetchData data, _) => data.value,
-                                maximumValue: 350,
+                                maximumValue: 400,
                                 dataLabelSettings:
                                     DataLabelSettings(isVisible: true),
                               )

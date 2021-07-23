@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
         enableConfigView: true,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.indigo,
         ),
         initialRoute: '/',
         routes: Routes().route,

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chart_exam/data/post/api.dart';
 import 'package:flutter_chart_exam/data/respose/covid/features.dart';
-import 'package:flutter_chart_exam/data/respose/ordinal_sales.dart';
-import 'package:flutter_chart_exam/data/respose/timeline.dart';
+import 'package:flutter_chart_exam/data/respose/data_model.dart';
+import 'package:flutter_chart_exam/data/respose/fetch_data.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_event.dart';
 
 import 'package:flutter_chart_exam/view/page_view/page_view_bloc.dart';

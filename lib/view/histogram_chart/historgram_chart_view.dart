@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chart_exam/data/post/api.dart';
-import 'package:flutter_chart_exam/data/respose/timeline.dart';
+import 'package:flutter_chart_exam/data/respose/fetch_data.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_bloc.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_state.dart';
@@ -27,12 +27,12 @@ class _HistogramChartViewState extends BaseBlocState<HistogramChartView> {
     List<FetchData> chartData = [];
 
     state.covidModel?.All.dates?.forEach((key, value) {
-      if (value > 100) {
-        chartData.add(
-            FetchData(key, value, charts.ColorUtil.fromDartColor(Colors.blue)));
-      }
+      // if (value > 100) {
+      chartData.add(
+          FetchData(key, value, charts.ColorUtil.fromDartColor(Colors.blue)));
+      // }
     });
-    chartData = chartData.reversed.toList();
+    //chartData = chartData.reversed.toList();
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),

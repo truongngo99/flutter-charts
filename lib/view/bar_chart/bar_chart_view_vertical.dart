@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chart_exam/data/post/api.dart';
-import 'package:flutter_chart_exam/data/respose/covid/features.dart';
-import 'package:flutter_chart_exam/data/respose/covid/properti.dart';
-import 'package:flutter_chart_exam/data/respose/ordinal_sales.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter_chart_exam/data/respose/timeline.dart';
+import 'package:flutter_chart_exam/data/respose/fetch_data.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_bloc.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_state.dart';
@@ -35,8 +32,6 @@ class _BarChartVerticalViewState extends BaseBlocState<BarChartVerticalView> {
       }
     });
     listask = listask.reversed.toList();
-    print(listask.length);
-
     List<charts.Series<FetchData, String>> timeline = [
       charts.Series(
         id: 'Subscribes',
@@ -72,16 +67,10 @@ class _BarChartVerticalViewState extends BaseBlocState<BarChartVerticalView> {
                         child: charts.BarChart(
                           timeline,
                           animate: true,
-
                           vertical: false,
-                          //animationDuration: Duration(seconds: 2),
-                          behaviors: [
-                            new charts.ChartTitle('Người chết',
-                                behaviorPosition: charts.BehaviorPosition.start,
-                                titleStyleSpec:
-                                    charts.TextStyleSpec(fontSize: 14))
-                          ],
                           // barRendererDecorator: charts.BarLabelDecorator(
+                          //     labelPadding: 30,
+                          //     labelPosition: charts.BarLabelPosition.inside,
                           //     outsideLabelStyleSpec: charts.TextStyleSpec()),
                         ),
                       ),
