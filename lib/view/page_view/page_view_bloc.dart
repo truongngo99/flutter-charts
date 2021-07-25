@@ -11,7 +11,7 @@ class PageViewBloc extends BaseBloc<PageViewState> {
   Stream<PageViewState> mapEventToState(BaseEvent event) async* {
     if (event is PageViewEvent) {
       yield state.copyWith(isLoading: true);
-      var result = await api.getDataCountry(event.country);
+      var result = await api.getDataCountryCode(event.code);
       yield state.copyWith(isLoading: false, covidModel: result);
     }
   }

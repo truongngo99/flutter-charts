@@ -10,6 +10,9 @@ abstract class Api {
 
   Method get getCountry => GET('cases?');
   Future<CovidModel> getDataCountry(String country);
+
+  Method get getCountryAB => GET('cases?');
+  Future<CovidModel> getDataCountryCode(String code);
 }
 
 class ApiUrl extends BaseUrl {

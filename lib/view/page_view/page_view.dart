@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chart_exam/data/list_country.dart';
 import 'package:flutter_chart_exam/data/post/api.dart';
 import 'package:flutter_chart_exam/data/respose/covid/features.dart';
 import 'package:flutter_chart_exam/data/respose/data_model.dart';
@@ -43,6 +44,7 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
       var confir = fetchData?.confirmed ?? 0;
       var recor = fetchData?.recovered ?? 0;
       totalCase = death + confir + recor;
+
       listData.add(DataModel('Confirme', fetchData!.confirmed,
           charts.ColorUtil.fromDartColor(Colors.green)));
       listData.add(DataModel('Recorver', fetchData.recovered,
@@ -53,13 +55,16 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
 
     List<charts.Series<DataModel, String>> timeline = [
       charts.Series(
-        id: 'Subscribes',
-        data: listData,
-        domainFn: (DataModel timeline, _) => timeline.catergory,
-        measureFn: (DataModel timeline, _) => timeline.value,
-        colorFn: (DataModel timeline, __) => timeline.barColor,
-      )
+          id: 'Subscribes',
+          data: listData,
+          domainFn: (DataModel timeline, _) => timeline.catergory,
+          measureFn: (DataModel timeline, _) => timeline.value,
+          colorFn: (DataModel timeline, __) => timeline.barColor,
+          labelAccessorFn: (DataModel timeline, _) =>
+              '${timeline.value.toString()}')
     ];
+    String _displayStringForOption(Map<String, String> option) =>
+        option['name'] ?? '';
     return Scaffold(
       backgroundColor: Color(0xFF473F97),
       appBar: AppBar(
@@ -77,27 +82,51 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                 SliverPadding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   sliver: SliverToBoxAdapter(
-                    child: TextField(
-                      controller: _search,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                          hintText: 'Search',
+                      child: Autocomplete<Map<String, String>>(
+                    fieldViewBuilder:
+                        (context, controller, focusNode, onEditingComplete) {
+                      return TextField(
+                        controller: controller,
+                        focusNode: focusNode,
+                        onEditingComplete: onEditingComplete,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: 'Search Country',
                           hoverColor: Colors.white,
-                          hintStyle: TextStyle(color: Colors.white),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              Icons.search,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              addEvent(PageViewEvent(_search.text));
-                            },
-                          ),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          )),
-                    ),
-                  ),
+                              borderRadius: BorderRadius.circular(20)),
+                          hintStyle: TextStyle(color: Colors.white),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.white,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(20)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius: BorderRadius.circular(20)),
+                        ),
+                      );
+                    },
+                    displayStringForOption: _displayStringForOption,
+                    optionsBuilder: (textEditingValue) {
+                      if (textEditingValue.text == '') {
+                        return const Iterable<Map<String, String>>.empty();
+                      }
+                      return listCountry.where((element) {
+                        print(element['name']!
+                            .contains(textEditingValue.text.toLowerCase()));
+                        return element['name']!
+                            .toLowerCase()
+                            .startsWith(textEditingValue.text.toLowerCase());
+                      });
+                    },
+                    onSelected: (selection) {
+                      print(selection['name']);
+                      addEvent(PageViewEvent(selection['code'] ?? 'VN'));
+                    },
+                  )),
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -170,6 +199,9 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                               child: charts.BarChart(
                                 timeline,
                                 animate: true,
+                                barRendererDecorator:
+                                    new charts.BarLabelDecorator<String>(),
+                                domainAxis: new charts.OrdinalAxisSpec(),
                               ),
                             ),
                           ),
@@ -233,10 +265,6 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
     );
   }
 
-  TextField _buildStatsTabBar() {
-    return TextField();
-  }
-
   Expanded _buildStatCard(String title, String count, MaterialColor color) {
     return Expanded(
       child: Container(
@@ -274,5 +302,5 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
 
   @override
   BaseBloc createBloc() =>
-      PageViewBloc(context.read<Api>())..add(PageViewEvent('Vietnam'));
+      PageViewBloc(context.read<Api>())..add(PageViewEvent('VN'));
 }

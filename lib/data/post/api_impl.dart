@@ -20,4 +20,12 @@ class ApiImpl extends BaseAPI with Api {
       'country': country,
     }));
   }
+
+  @override
+  Future<CovidModel> getDataCountryCode(String code) async {
+    return CovidModel.fromJson(
+        await sendApiRequest(getCountryAB, queryParameters: {
+      'ab': code,
+    }));
+  }
 }
