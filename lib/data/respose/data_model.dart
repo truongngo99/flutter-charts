@@ -1,9 +1,9 @@
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/material.dart';
 
 class DataModel {
   final String catergory;
   final int? value;
-  final charts.Color barColor;
+  final Color? barColor;
 
   DataModel(this.catergory, this.value, this.barColor);
 }
