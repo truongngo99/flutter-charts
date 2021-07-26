@@ -45,24 +45,22 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
       var recor = fetchData?.recovered ?? 0;
       totalCase = death + confir + recor;
 
-      listData.add(DataModel('Confirme', fetchData!.confirmed,
-          charts.ColorUtil.fromDartColor(Colors.green)));
-      listData.add(DataModel('Recorver', fetchData.recovered,
-          charts.ColorUtil.fromDartColor(Colors.lightBlue)));
-      listData.add(DataModel('Deaths', fetchData.deaths,
-          charts.ColorUtil.fromDartColor(Colors.red)));
+      listData.add(DataModel('Confirme', fetchData!.confirmed, Colors.green));
+      listData
+          .add(DataModel('Recorver', fetchData.recovered, Colors.lightBlue));
+      listData.add(DataModel('Deaths', fetchData.deaths, Colors.red));
     }
 
-    List<charts.Series<DataModel, String>> timeline = [
-      charts.Series(
-          id: 'Subscribes',
-          data: listData,
-          domainFn: (DataModel timeline, _) => timeline.catergory,
-          measureFn: (DataModel timeline, _) => timeline.value,
-          colorFn: (DataModel timeline, __) => timeline.barColor,
-          labelAccessorFn: (DataModel timeline, _) =>
-              '${timeline.value.toString()}')
-    ];
+    // List<charts.Series<DataModel, String>> timeline = [
+    //   charts.Series(
+    //       id: 'Subscribes',
+    //       data: listData,
+    //       domainFn: (DataModel timeline, _) => timeline.catergory,
+    //       measureFn: (DataModel timeline, _) => timeline.value,
+    //       colorFn: (DataModel timeline, __) => timeline.barColor,
+    //       labelAccessorFn: (DataModel timeline, _) =>
+    //           '${timeline.value.toString()}')
+    // ];
     String _displayStringForOption(Map<String, String> option) =>
         option['name'] ?? '';
     return Scaffold(
@@ -195,15 +193,28 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                           ),
                           Expanded(
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 0.85,
-                              child: charts.BarChart(
-                                timeline,
-                                animate: true,
-                                barRendererDecorator:
-                                    new charts.BarLabelDecorator<String>(),
-                                domainAxis: new charts.OrdinalAxisSpec(),
-                              ),
-                            ),
+                                width: MediaQuery.of(context).size.width * 0.85,
+                                child: SfCartesianChart(
+                                  tooltipBehavior: TooltipBehavior(
+                                    enable: true,
+                                    tooltipPosition: TooltipPosition.pointer,
+                                  ),
+                                  series: <ChartSeries>[
+                                    ColumnSeries<DataModel, String>(
+                                      dataSource: listData,
+                                      name: 'Covid-19',
+                                      dataLabelSettings:
+                                          DataLabelSettings(isVisible: true),
+                                      xValueMapper: (DataModel data, _) =>
+                                          data.catergory,
+                                      yValueMapper: (DataModel data, _) =>
+                                          data.value,
+                                      pointColorMapper: (DataModel data, _) =>
+                                          data.barColor,
+                                    )
+                                  ],
+                                  primaryXAxis: CategoryAxis(),
+                                )),
                           ),
                         ],
                       ),
