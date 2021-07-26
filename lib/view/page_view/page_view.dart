@@ -199,13 +199,24 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                 width: MediaQuery.of(context).size.width * 0.85,
                                 child: SfCartesianChart(
                                   legend: Legend(
-                                    isVisible: true,
-                                    overflowMode: LegendItemOverflowMode.wrap,
-                                  ),
+                                      isVisible: true,
+                                      iconHeight: 10,
+                                      iconWidth: 10,
+                                      toggleSeriesVisibility: true,
+                                      position: LegendPosition.bottom,
+                                      overflowMode: LegendItemOverflowMode.wrap,
+                                      alignment: ChartAlignment.center),
                                   crosshairBehavior: CrosshairBehavior(
                                     lineType: CrosshairLineType.horizontal,
                                     enable: true,
+                                    shouldAlwaysShow: false,
                                     activationMode: ActivationMode.singleTap,
+                                  ),
+                                  trackballBehavior: TrackballBehavior(
+                                    lineType: TrackballLineType.vertical,
+                                    activationMode: ActivationMode.singleTap,
+                                    shouldAlwaysShow: false,
+                                    enable: true,
                                   ),
                                   tooltipBehavior: TooltipBehavior(
                                     enable: true,
@@ -216,8 +227,11 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                     ColumnSeries<DataModel, String>(
                                       dataSource: listData,
                                       name: 'Covid-19',
-                                      dataLabelSettings:
-                                          DataLabelSettings(isVisible: true),
+                                      dataLabelSettings: DataLabelSettings(
+                                        isVisible: true,
+                                        labelAlignment:
+                                            ChartDataLabelAlignment.auto,
+                                      ),
                                       xValueMapper: (DataModel data, _) =>
                                           data.catergory,
                                       yValueMapper: (DataModel data, _) =>
@@ -226,7 +240,14 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                           data.barColor,
                                     )
                                   ],
-                                  primaryXAxis: CategoryAxis(),
+                                  primaryXAxis: CategoryAxis(
+                                    isVisible: true,
+                                    opposedPosition: false,
+                                    isInversed: false,
+                                  ),
+                                  selectionType: SelectionType.series,
+                                  isTransposed: false,
+                                  selectionGesture: ActivationMode.singleTap,
                                 )),
                           ),
                         ],

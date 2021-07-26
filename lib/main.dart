@@ -4,7 +4,6 @@ import 'package:flutter_chart_exam/change_material_app.dart';
 import 'package:flutter_chart_exam/data/post/api.dart';
 import 'package:flutter_chart_exam/data/post/api_impl.dart';
 import 'package:flutter_chart_exam/route/route.dart';
-import 'package:flutter_chart_exam/view/page_view/page_view.dart';
 
 import 'package:teq_flutter_core/teq_flutter_core.dart';
 
@@ -31,7 +30,6 @@ class _MyAppState extends State<MyApp> {
     return MultiRepositoryProvider(
       providers: [RepositoryProvider<Api>(create: (context) => ApiImpl())],
       child: MaterialAppChange(
-        //home: PageViewScreen(),
         height: double.infinity,
         width: double.infinity,
         enableConfigView: true,
