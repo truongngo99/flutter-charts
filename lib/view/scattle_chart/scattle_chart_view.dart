@@ -9,6 +9,7 @@ import 'package:flutter_chart_exam/data/respose/fetch_data.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_bloc.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_state.dart';
+import 'package:flutter_chart_exam/view/widget/drawer_view.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:teq_flutter_core/teq_flutter_core.dart';
 
@@ -53,6 +54,7 @@ class _ScatleChartViewState extends BaseBlocState<ScatleChartView> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      drawer: DrawerView(),
       body: Center(
         child: state.isLoading
             ? CircularProgressIndicator()
