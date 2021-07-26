@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chart_exam/data/list_chart.dart';
 import 'package:flutter_chart_exam/data/list_country.dart';
 import 'package:flutter_chart_exam/data/post/api.dart';
 import 'package:flutter_chart_exam/data/respose/covid/features.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_chart_exam/view/bar_chart/bar_chart_event.dart';
 import 'package:flutter_chart_exam/view/page_view/page_view_bloc.dart';
 import 'package:flutter_chart_exam/view/page_view/page_view_event.dart';
 import 'package:flutter_chart_exam/view/page_view/page_view_state.dart';
+import 'package:flutter_chart_exam/view/widget/drawer_view.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:teq_flutter_core/teq_flutter_core.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -35,7 +37,7 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
 
   Widget _buildBody(BuildContext context, PageViewState state) {
     TextEditingController _search = TextEditingController();
-
+    ListChart listChart = ListChart();
     List<DataModel> listData = [];
     int totalCase = 0;
     if (state.covidModel != null) {
@@ -70,6 +72,7 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
         title: Text('COVID-19 '),
         centerTitle: true,
       ),
+      drawer: DrawerView(),
       body: state.isLoading
           ? Center(child: CircularProgressIndicator())
           : CustomScrollView(
@@ -195,8 +198,14 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                             child: Container(
                                 width: MediaQuery.of(context).size.width * 0.85,
                                 child: SfCartesianChart(
+                                  crosshairBehavior: CrosshairBehavior(
+                                    lineType: CrosshairLineType.horizontal,
+                                    enable: true,
+                                    activationMode: ActivationMode.singleTap,
+                                  ),
                                   tooltipBehavior: TooltipBehavior(
                                     enable: true,
+                                    activationMode: ActivationMode.doubleTap,
                                     tooltipPosition: TooltipPosition.pointer,
                                   ),
                                   series: <ChartSeries>[

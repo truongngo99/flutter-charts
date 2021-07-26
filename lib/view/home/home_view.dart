@@ -35,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 margin: EdgeInsets.only(top: 15),
                 child: ListTile(
-                  trailing: Icon(Icons.arrow_right),
+                  trailing: Icon(Icons.arrow_right_alt),
                   title:
                       Text('Ex ${index + 1}: ${listChart.data[index]['name']}'),
                   onTap: () {

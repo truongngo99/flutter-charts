@@ -11,6 +11,7 @@ import 'package:flutter_chart_exam/view/bar_chart/bar_chart_state.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_bloc.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_state.dart';
+import 'package:flutter_chart_exam/view/widget/drawer_view.dart';
 import 'package:teq_flutter_core/teq_flutter_core.dart';
 
 class BarChartStackView extends StatefulWidget {
@@ -71,6 +72,7 @@ class _BarChartStackViewState extends BaseBlocState<BarChartStackView> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      drawer: DrawerView(),
       body: Center(
         child: state.isLoading
             ? CircularProgressIndicator()

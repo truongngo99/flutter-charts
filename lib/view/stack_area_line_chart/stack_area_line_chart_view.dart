@@ -6,6 +6,7 @@ import 'package:flutter_chart_exam/data/respose/fetch_data.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_bloc.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_state.dart';
+import 'package:flutter_chart_exam/view/widget/drawer_view.dart';
 import 'package:teq_flutter_core/teq_flutter_core.dart';
 
 class StackAreaLineChartView extends StatefulWidget {
@@ -69,6 +70,7 @@ class _StackAreaLineChartViewState
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      drawer: DrawerView(),
       body: Center(
         child: state.isLoading
             ? CircularProgressIndicator()
