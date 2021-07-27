@@ -198,6 +198,10 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                             child: Container(
                                 width: MediaQuery.of(context).size.width * 0.85,
                                 child: SfCartesianChart(
+                                  legend: Legend(
+                                    isVisible: true,
+                                    overflowMode: LegendItemOverflowMode.wrap,
+                                  ),
                                   crosshairBehavior: CrosshairBehavior(
                                     lineType: CrosshairLineType.horizontal,
                                     enable: true,

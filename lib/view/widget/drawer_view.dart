@@ -43,6 +43,152 @@ class DrawerView extends StatelessWidget {
             ),
           ),
         ),
+        Expanded(
+          child: ListView.builder(
+              itemCount: listChart.data.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    '${listChart.data[index]['name']}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, listChart.data[index]['route']);
+                  },
+                );
+              }),
+        ),
+        // Container(
+        //   height: 520,
+        //   child: ListView(
+        //     scrollDirection: Axis.vertical,
+        //     children: [
+        //       ListTile(
+        //         title: Text(
+        //           'Example',
+        //           style: TextStyle(fontSize: 16),
+        //         ),
+        //         onTap: () {
+        //           transferToNewScreen(
+        //             context,
+        //             PageViewScreen(),
+        //           );
+        //         },
+        //       ),
+        //       ListTile(
+        //         title: Text(
+        //           'Bar Chart Basic',
+        //           style: TextStyle(fontSize: 16),
+        //         ),
+        //         onTap: () {
+        //           Navigator.of(context)
+        //               .pushReplacementNamed(listChart.data[1]['route']);
+        //         },
+        //       ),
+        //       ListTile(
+        //         title: Text(
+        //           'Bar Chart Basic Vertical',
+        //           style: TextStyle(fontSize: 16),
+        //         ),
+        //         onTap: () {
+        //           transferToNewScreen(
+        //             context,
+        //             BarChartVerticalView(
+        //               title: 'Bar Chart Vertical',
+        //             ),
+        //           );
+        //         },
+        //       ),
+        //       ListTile(
+        //         title: Text(
+        //           'Time Line Chart Basic',
+        //           style: TextStyle(fontSize: 16),
+        //         ),
+        //         onTap: () {
+        //           transferToNewScreen(
+        //             context,
+        //             TimeLineChartBasic(
+        //               title: 'Time Chart Basic',
+        //             ),
+        //           );
+        //         },
+        //       ),
+        //       ListTile(
+        //         title: Text(
+        //           'Pie Chart Basic',
+        //           style: TextStyle(fontSize: 16),
+        //         ),
+        //         onTap: () {
+        //           transferToNewScreen(
+        //             context,
+        //             PieChartBasic(title: 'Pie Chart Basic'),
+        //           );
+        //         },
+        //       ),
+        //       ListTile(
+        //         title: Text(
+        //           'Bar Chart Stack',
+        //           style: TextStyle(fontSize: 16),
+        //         ),
+        //         onTap: () {
+        //           transferToNewScreen(
+        //             context,
+        //             BarChartStackView(title: 'Bar Chart Stack'),
+        //           );
+        //         },
+        //       ),
+        //       ListTile(
+        //         title: Text(
+        //           'Group Bar Chart Stack',
+        //           style: TextStyle(fontSize: 16),
+        //         ),
+        //         onTap: () {
+        //           transferToNewScreen(
+        //             context,
+        //             GroupBarChartView(title: 'Group Bar Chart Stack'),
+        //           );
+        //         },
+        //       ),
+        //       ListTile(
+        //         title: Text(
+        //           'Stack Area Line Chart',
+        //           style: TextStyle(fontSize: 16),
+        //         ),
+        //         onTap: () {
+        //           transferToNewScreen(
+        //             context,
+        //             StackAreaLineChartView(title: 'Stack Area Line'),
+        //           );
+        //         },
+        //       ),
+        //       ListTile(
+        //         title: Text(
+        //           'Histogram  Chart',
+        //           style: TextStyle(fontSize: 16),
+        //         ),
+        //         onTap: () {
+        //           transferToNewScreen(
+        //             context,
+        //             HistogramChartView(title: 'Histogram Chart'),
+        //           );
+        //         },
+        //       ),
+        //       ListTile(
+        //         title: Text(
+        //           'Scatle  Chart',
+        //           style: TextStyle(fontSize: 16),
+        //         ),
+        //         onTap: () {
+        //           transferToNewScreen(
+        //             context,
+        //             ScatleChartView(title: 'Scatle Chart'),
+        //           );
+        //         },
+        //       ),
+        //     ],
+        //   ),
+        // ),
         // Container(
         //   height: 590,
         //   child: ListView.builder(
@@ -57,132 +203,6 @@ class DrawerView extends StatelessWidget {
         //         );
         //       }),
         // ),
-        ListTile(
-          title: Text(
-            'Example',
-            style: TextStyle(fontSize: 16),
-          ),
-          onTap: () {
-            transferToNewScreen(
-              context,
-              PageViewScreen(),
-            );
-          },
-        ),
-        ListTile(
-          title: Text(
-            'Bar Chart Basic',
-            style: TextStyle(fontSize: 16),
-          ),
-          onTap: () {
-            transferToNewScreen(
-              context,
-              BarChartView(
-                title: 'Bar Chart Basic',
-              ),
-            );
-          },
-        ),
-        ListTile(
-          title: Text(
-            'Bar Chart Basic Vertical',
-            style: TextStyle(fontSize: 16),
-          ),
-          onTap: () {
-            transferToNewScreen(
-              context,
-              BarChartVerticalView(
-                title: 'Bar Chart Vertical',
-              ),
-            );
-          },
-        ),
-        ListTile(
-          title: Text(
-            'Time Line Chart Basic',
-            style: TextStyle(fontSize: 16),
-          ),
-          onTap: () {
-            transferToNewScreen(
-              context,
-              TimeLineChartBasic(
-                title: 'Time Chart Basic',
-              ),
-            );
-          },
-        ),
-        ListTile(
-          title: Text(
-            'Pie Chart Basic',
-            style: TextStyle(fontSize: 16),
-          ),
-          onTap: () {
-            transferToNewScreen(
-              context,
-              PieChartBasic(title: 'Pie Chart Basic'),
-            );
-          },
-        ),
-        ListTile(
-          title: Text(
-            'Bar Chart Stack',
-            style: TextStyle(fontSize: 16),
-          ),
-          onTap: () {
-            transferToNewScreen(
-              context,
-              BarChartStackView(title: 'Bar Chart Stack'),
-            );
-          },
-        ),
-        ListTile(
-          title: Text(
-            'Group Bar Chart Stack',
-            style: TextStyle(fontSize: 16),
-          ),
-          onTap: () {
-            transferToNewScreen(
-              context,
-              GroupBarChartView(title: 'Group Bar Chart Stack'),
-            );
-          },
-        ),
-        ListTile(
-          title: Text(
-            'Stack Area Line Chart',
-            style: TextStyle(fontSize: 16),
-          ),
-          onTap: () {
-            transferToNewScreen(
-              context,
-              StackAreaLineChartView(title: 'Stack Area Line'),
-            );
-          },
-        ),
-        ListTile(
-          title: Text(
-            'Histogram  Chart',
-            style: TextStyle(fontSize: 16),
-          ),
-          onTap: () {
-            transferToNewScreen(
-              context,
-              HistogramChartView(title: 'Histogram Chart'),
-            );
-          },
-        ),
-        ListTile(
-          title: Text(
-            'Scatle  Chart',
-            style: TextStyle(fontSize: 16),
-          ),
-          onTap: () {
-            transferToNewScreen(
-              context,
-              ScatleChartView(title: 'Scatle Chart'),
-            );
-          },
-        ),
       ],
     ));
   }

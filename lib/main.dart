@@ -30,8 +30,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [RepositoryProvider<Api>(create: (context) => ApiImpl())],
-      child: TeqCoreApp(
-        home: PageViewScreen(),
+      child: MaterialAppChange(
+        //home: PageViewScreen(),
         height: double.infinity,
         width: double.infinity,
         enableConfigView: true,
@@ -39,8 +39,8 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.indigo,
         ),
-        // initialRoute: '/',
-        // routes: Routes().route,
+        initialRoute: '/',
+        routes: Routes().route,
       ),
     );
   }

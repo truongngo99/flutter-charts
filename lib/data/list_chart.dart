@@ -1,6 +1,6 @@
 class ListChart {
   List<Map<String, dynamic>> data = [
-    {'name': 'Example', 'route': 'pageview'},
+    {'name': 'Example', 'route': '/'},
     {'name': 'Bar Chart Basic', 'route': 'barchartbasic'},
     {'name': 'Bar Chart Basic Vertical', 'route': 'barchartbasicvertical'},
     {'name': 'Time Line Chart Basic', 'route': 'timelinechart'},

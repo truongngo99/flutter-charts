@@ -14,8 +14,7 @@ import 'package:flutter_chart_exam/view/time_line_chart/time_line_chart_basic_vi
 
 class Routes {
   Map<String, Widget Function(BuildContext context)> route = {
-    '/': (context) => HomeView(),
-    'pageview': (context) => PageViewScreen(),
+    '/': (context) => PageViewScreen(),
     'barchartbasic': (context) => BarChartView(
           title: 'Bar Chart Basic',
         ),
