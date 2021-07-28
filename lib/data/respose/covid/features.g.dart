@@ -14,6 +14,7 @@ AllData _$AllDataFromJson(Map<String, dynamic> json) {
     json['recovered'] as int?,
     json['updated'] as String?,
     json['country'] as String,
+    json['abbreviation'] as String?,
   );
 }
 
@@ -23,5 +24,6 @@ Map<String, dynamic> _$AllDataToJson(AllData instance) => <String, dynamic>{
       'deaths': instance.deaths,
       'country': instance.country,
       'updated': instance.updated,
+      'abbreviation': instance.abbreviation,
       'dates': instance.dates,
     };

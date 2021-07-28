@@ -10,10 +10,12 @@ import 'package:flutter_chart_exam/data/respose/covid/features.dart';
 import 'package:flutter_chart_exam/data/respose/data_model.dart';
 import 'package:flutter_chart_exam/data/respose/fetch_data.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_event.dart';
+import 'package:flutter_chart_exam/view/detail_chart/detail_chart_view.dart';
 
 import 'package:flutter_chart_exam/view/page_view/page_view_bloc.dart';
 import 'package:flutter_chart_exam/view/page_view/page_view_event.dart';
 import 'package:flutter_chart_exam/view/page_view/page_view_state.dart';
+import 'package:flutter_chart_exam/view/pie_chart/pie_chart_view.dart';
 import 'package:flutter_chart_exam/view/widget/drawer_view.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:teq_flutter_core/teq_flutter_core.dart';
@@ -38,6 +40,7 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
   Widget _buildBody(BuildContext context, PageViewState state) {
     TextEditingController _search = TextEditingController();
     ListChart listChart = ListChart();
+
     List<DataModel> listData = [];
     int totalCase = 0;
     if (state.covidModel != null) {
@@ -198,6 +201,11 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                             child: Container(
                                 width: MediaQuery.of(context).size.width * 0.85,
                                 child: SfCartesianChart(
+                                  // zoomPanBehavior: ZoomPanBehavior(
+                                  //   enablePinching: true,
+                                  //   zoomMode: ZoomMode.x,
+                                  //   enablePanning: true,
+                                  // ),
                                   legend: Legend(
                                       isVisible: true,
                                       iconHeight: 10,
@@ -225,6 +233,51 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                   ),
                                   series: <ChartSeries>[
                                     ColumnSeries<DataModel, String>(
+                                      onPointTap: (ChartPointDetails details) {
+                                        if (details.pointIndex == 0) {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DetailChartView(
+                                                        code: state
+                                                                .covidModel
+                                                                ?.All
+                                                                .abbreviation ??
+                                                            '',
+                                                        status: 'confirmed',
+                                                      )));
+                                        }
+                                        if (details.pointIndex == 1) {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DetailChartView(
+                                                        code: state
+                                                                .covidModel
+                                                                ?.All
+                                                                .abbreviation ??
+                                                            '',
+                                                        status: 'recovered',
+                                                      )));
+                                        }
+                                        if (details.pointIndex == 3) {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DetailChartView(
+                                                        code: state
+                                                                .covidModel
+                                                                ?.All
+                                                                .abbreviation ??
+                                                            '',
+                                                        status: 'deaths',
+                                                      )));
+                                        }
+                                        // print(details.seriesIndex);
+                                      },
                                       dataSource: listData,
                                       name: 'Covid-19',
                                       dataLabelSettings: DataLabelSettings(
@@ -247,7 +300,7 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                   ),
                                   selectionType: SelectionType.series,
                                   isTransposed: false,
-                                  selectionGesture: ActivationMode.singleTap,
+                                  //selectionGesture: ActivationMode.singleTap,
                                 )),
                           ),
                         ],

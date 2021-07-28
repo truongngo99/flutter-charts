@@ -7,6 +7,7 @@ import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_bloc.dar
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart_stack/bar_chart_stack_state.dart';
 import 'package:flutter_chart_exam/view/widget/drawer_view.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:teq_flutter_core/teq_flutter_core.dart';
 
 class StackAreaLineChartView extends StatefulWidget {
@@ -87,52 +88,35 @@ class _StackAreaLineChartViewState
                           style: TextStyle(color: Colors.red, fontSize: 18),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            width: 20,
-                            child: Divider(
-                              color: Colors.blue,
-                              thickness: 5,
-                            ),
-                          ),
-                          Text(' Việt Nam'),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            width: 20,
-                            child: Divider(
-                              color: Colors.blueGrey,
-                              thickness: 5,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: Text(' Campuchia'),
-                          ),
-                        ],
-                      ),
                       Expanded(
-                        child: charts.LineChart(
-                          timeline,
-                          animate: true,
-                          defaultRenderer: new charts.LineRendererConfig(
-                              stacked: true, includeArea: true),
-                          //vertical: false,
-                          behaviors: [
-                            charts.ChartTitle('Date',
-                                behaviorPosition:
-                                    charts.BehaviorPosition.bottom),
-                            charts.ChartTitle('Death',
-                                behaviorPosition:
-                                    charts.BehaviorPosition.start),
+                        child: SfCartesianChart(
+                          legend: Legend(
+                            isVisible: true,
+                          ),
+                          tooltipBehavior: TooltipBehavior(enable: true),
+                          crosshairBehavior: CrosshairBehavior(
+                              enable: true,
+                              activationMode: ActivationMode.singleTap,
+                              lineType: CrosshairLineType.horizontal),
+                          primaryXAxis: DateTimeAxis(),
+                          series: <ChartSeries>[
+                            StackedLineSeries<FetchData, DateTime>(
+                                name: 'Viet Nam',
+                                dataSource: listaskVN,
+                                xValueMapper: (FetchData data, _) =>
+                                    DateTime.parse(
+                                        data.date.replaceAll('-', '')),
+                                yValueMapper: (FetchData data, _) =>
+                                    data.value),
+                            StackedLineSeries<FetchData, DateTime>(
+                                groupName: 'Group B',
+                                name: 'Campuchia',
+                                dataSource: listaskCam,
+                                xValueMapper: (FetchData data, _) =>
+                                    DateTime.parse(
+                                        data.date.replaceAll('-', '')),
+                                yValueMapper: (FetchData data, _) => data.value)
                           ],
-
-                          // domainAxis: charts.OrdinalAxisSpec(
-                          //     renderSpec: charts.SmallTickRendererSpec(
-                          //         labelRotation: 80)),
                         ),
                       ),
                     ],
