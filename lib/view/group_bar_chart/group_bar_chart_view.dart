@@ -50,7 +50,7 @@ class _GroupBarChartViewState extends BaseBlocState<GroupBarChartView> {
       charts.Series(
         id: 'VN',
         data: listaskVN,
-        domainFn: (FetchData timeline, _) => timeline.date,
+        domainFn: (FetchData timeline, _) => timeline.date.substring(8, 10),
         measureFn: (FetchData timeline, _) => timeline.value,
         colorFn: (FetchData timeline, _) => timeline.barColor,
         labelAccessorFn: (FetchData row, _) => '${row.value}',
@@ -58,7 +58,7 @@ class _GroupBarChartViewState extends BaseBlocState<GroupBarChartView> {
       charts.Series(
         id: 'Lao',
         data: listaskLao,
-        domainFn: (FetchData timeline, _) => timeline.date,
+        domainFn: (FetchData timeline, _) => timeline.date.substring(8, 10),
         measureFn: (FetchData timeline, _) => timeline.value,
         colorFn: (FetchData timeline, _) => timeline.barColor,
         labelAccessorFn: (FetchData row, _) => '${row.value}',
@@ -124,9 +124,9 @@ class _GroupBarChartViewState extends BaseBlocState<GroupBarChartView> {
                           //   ),
                           // ],
                           barGroupingType: charts.BarGroupingType.grouped,
-                          domainAxis: charts.OrdinalAxisSpec(
-                              renderSpec: charts.SmallTickRendererSpec(
-                                  labelRotation: 80)),
+                          // domainAxis: charts.OrdinalAxisSpec(
+                          //     renderSpec: charts.SmallTickRendererSpec(
+                          //         labelRotation: 80)),
                         ),
                       ),
                     ],

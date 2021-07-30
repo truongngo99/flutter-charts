@@ -7,6 +7,7 @@ import 'package:flutter_chart_exam/view/bar_chart/bar_chart_bloc.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_state.dart';
 import 'package:flutter_chart_exam/view/widget/drawer_view.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:teq_flutter_core/teq_flutter_core.dart';
 
 class BarChartVerticalView extends StatefulWidget {
@@ -37,7 +38,7 @@ class _BarChartVerticalViewState extends BaseBlocState<BarChartVerticalView> {
       charts.Series(
         id: 'Subscribes',
         data: listask,
-        domainFn: (FetchData timeline, _) => timeline.date,
+        domainFn: (FetchData timeline, _) => timeline.date.substring(8, 10),
         measureFn: (FetchData timeline, _) => timeline.value,
         // colorFn: (Task timeline, _) =>
         //     charts.ColorUtil.fromDartColor(timeline.colorValue),
@@ -66,14 +67,22 @@ class _BarChartVerticalViewState extends BaseBlocState<BarChartVerticalView> {
                         ),
                       ),
                       Expanded(
-                        child: charts.BarChart(
-                          timeline,
-                          animate: true,
-                          vertical: false,
-                          // barRendererDecorator: charts.BarLabelDecorator(
-                          //     labelPadding: 30,
-                          //     labelPosition: charts.BarLabelPosition.inside,
-                          //     outsideLabelStyleSpec: charts.TextStyleSpec()),
+                        child: SfCartesianChart(
+                          primaryXAxis: CategoryAxis(),
+                          tooltipBehavior: TooltipBehavior(
+                            enable: true,
+                          ),
+                          isTransposed: true,
+                          series: [
+                            ColumnSeries<FetchData, String>(
+                              dataSource: listask,
+                              name: 'Covid-19',
+                              xValueMapper: (FetchData data, _) =>
+                                  data.date.substring(8, 10),
+                              yValueMapper: (FetchData data, _) => data.value,
+                              enableTooltip: true,
+                            )
+                          ],
                         ),
                       ),
                     ],

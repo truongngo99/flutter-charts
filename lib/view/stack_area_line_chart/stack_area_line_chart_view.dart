@@ -94,6 +94,10 @@ class _StackAreaLineChartViewState
                             isVisible: true,
                           ),
                           tooltipBehavior: TooltipBehavior(enable: true),
+                          trackballBehavior: TrackballBehavior(
+                            enable: true,
+                            activationMode: ActivationMode.singleTap,
+                          ),
                           crosshairBehavior: CrosshairBehavior(
                               enable: true,
                               activationMode: ActivationMode.singleTap,

@@ -53,7 +53,7 @@ class _BarChartStackViewState extends BaseBlocState<BarChartStackView> {
       charts.Series(
         id: 'Campuchia',
         data: listaskCam,
-        domainFn: (FetchData timeline, _) => timeline.date,
+        domainFn: (FetchData timeline, _) => timeline.date.substring(8, 10),
         measureFn: (FetchData timeline, _) => timeline.value,
         colorFn: (FetchData timeline, _) => timeline.barColor,
         labelAccessorFn: (FetchData row, _) => '${row.value}',
@@ -61,7 +61,7 @@ class _BarChartStackViewState extends BaseBlocState<BarChartStackView> {
       charts.Series(
         id: 'VN',
         data: listaskVN,
-        domainFn: (FetchData timeline, _) => timeline.date,
+        domainFn: (FetchData timeline, _) => timeline.date.substring(8, 10),
         measureFn: (FetchData timeline, _) => timeline.value,
         colorFn: (FetchData timeline, _) => timeline.barColor,
         labelAccessorFn: (FetchData row, _) => '${row.value}',

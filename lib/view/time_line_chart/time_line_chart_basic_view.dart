@@ -86,11 +86,6 @@ class _TimeLineChartBasicState extends BaseBlocState<TimeLineChartBasic> {
                             //     color: charts.MaterialPalette.purple.shadeDefault,
                             //   ),
                             // ),
-
-                            new charts.ChartTitle('Số người chết',
-                                behaviorPosition: charts.BehaviorPosition.start,
-                                titleOutsideJustification:
-                                    charts.OutsideJustification.middleDrawArea),
                           ],
                           // barRendererDecorator: charts.BarLabelDecorator(
                           //     outsideLabelStyleSpec: charts.TextStyleSpec()),

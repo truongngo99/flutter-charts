@@ -82,7 +82,7 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
               physics: ClampingScrollPhysics(),
               slivers: [
                 _buildHeader(),
-                _buildRegionTabBar(),
+                //_buildRegionTabBar(),
                 SliverPadding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   sliver: SliverToBoxAdapter(
@@ -240,6 +240,7 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       DetailChartView(
+                                                        title: 'Confirmed',
                                                         code: state
                                                                 .covidModel
                                                                 ?.All
@@ -254,6 +255,7 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       DetailChartView(
+                                                        title: 'Recovered ',
                                                         code: state
                                                                 .covidModel
                                                                 ?.All
@@ -262,12 +264,13 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                                         status: 'recovered',
                                                       )));
                                         }
-                                        if (details.pointIndex == 3) {
+                                        if (details.pointIndex == 2) {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       DetailChartView(
+                                                        title: 'Deaths',
                                                         code: state
                                                                 .covidModel
                                                                 ?.All

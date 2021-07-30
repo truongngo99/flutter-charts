@@ -8,6 +8,7 @@ import 'package:flutter_chart_exam/view/bar_chart/bar_chart_bloc.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_event.dart';
 import 'package:flutter_chart_exam/view/bar_chart/bar_chart_state.dart';
 import 'package:flutter_chart_exam/view/widget/drawer_view.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:teq_flutter_core/teq_flutter_core.dart';
 
 class BarChartView extends StatefulWidget {
@@ -69,23 +70,21 @@ class _BarChartViewState extends BaseBlocState<BarChartView> {
                         ),
                       ),
                       Expanded(
-                        child: charts.BarChart(
-                          timeline,
-                          animate: true,
-                          //độ nghiêng label trục x
-                          domainAxis: charts.OrdinalAxisSpec(
-                              renderSpec: charts.SmallTickRendererSpec(
-                                  labelRotation: 80)),
-                          // vertical: false,
-                          //animationDuration: Duration(seconds: 2),
-                          behaviors: [
-                            new charts.ChartTitle('Người chết',
-                                behaviorPosition: charts.BehaviorPosition.start,
-                                titleStyleSpec:
-                                    charts.TextStyleSpec(fontSize: 14))
+                        child: SfCartesianChart(
+                          primaryXAxis: CategoryAxis(),
+                          tooltipBehavior: TooltipBehavior(
+                            enable: true,
+                          ),
+                          series: [
+                            ColumnSeries<FetchData, String>(
+                              dataSource: listask,
+                              name: 'Covid-19',
+                              xValueMapper: (FetchData data, _) =>
+                                  data.date.substring(8, 10),
+                              yValueMapper: (FetchData data, _) => data.value,
+                              enableTooltip: true,
+                            )
                           ],
-                          // barRendererDecorator: charts.BarLabelDecorator(
-                          //     outsideLabelStyleSpec: charts.TextStyleSpec()),
                         ),
                       ),
                     ],

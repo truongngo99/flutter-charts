@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chart_exam/data/list_chart.dart';
+import 'package:flutter_chart_exam/view/widget/call_view.dart';
+import 'package:flutter_chart_exam/view/widget/web_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({Key? key}) : super(key: key);
@@ -31,6 +34,35 @@ class DrawerView extends StatelessWidget {
               ],
             ),
           ),
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.phone,
+            color: Colors.red,
+          ),
+          title: Text(
+            'Urgent call',
+            style: TextStyle(fontSize: 16),
+          ),
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => CallView()));
+          },
+        ),
+        ListTile(
+          leading: Icon(
+            FontAwesomeIcons.pencilAlt,
+            size: 20,
+            color: Colors.blue,
+          ),
+          title: Text(
+            'Health declaration',
+            style: TextStyle(fontSize: 16),
+          ),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => WebViewScreen()));
+          },
         ),
         Expanded(
           child: ListView.builder(

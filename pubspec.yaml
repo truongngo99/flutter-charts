@@ -34,6 +34,7 @@ dependencies:
   json_annotation: ^4.0.1
   flutter_bloc: ^7.0.1
   bubble_tab_indicator: "^0.1.4"
+  webview_flutter: ^2.0.10
   teq_flutter_core:
     git:
       url: git@github.com:ExecutionLab/teq-flutter-core.git
