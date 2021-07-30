@@ -74,7 +74,7 @@ class _DetailChartYearViewState extends BaseBlocState<DetailChartYearView> {
               series: [
                 ColumnSeries<DetailChartModel, int>(
                   dataSource: listask,
-                  name: 'Covid-19',
+                  name: state.covidModel?.All.country,
                   xValueMapper: (DetailChartModel data, _) =>
                       int.parse(data.date),
                   yValueMapper: (DetailChartModel data, _) => data.value,

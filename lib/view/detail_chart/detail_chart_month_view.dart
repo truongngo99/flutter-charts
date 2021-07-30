@@ -73,6 +73,19 @@ class _DetailChartMonthViewState extends BaseBlocState<DetailChartMonthView> {
         listask.add(DetailChartModel('12', value));
       }
     });
+    if (state.covidModel?.All.dates?.keys != null) {
+      var curKey = state.covidModel?.All.dates?.keys.elementAt(1);
+      var max = DateTime.parse(curKey ?? '');
+      var curValue = state.covidModel?.All.dates?.values.elementAt(1);
+      state.covidModel?.All.dates?.forEach((key, value) {
+        var temp = DateTime.parse(key);
+        if (max.compareTo(temp) < 0) {
+          max = temp;
+          curValue = value;
+        }
+      });
+      listaskmonth.add(DetailChartModel('7', curValue));
+    }
     state.covidModel?.All.dates?.forEach((key, value) {
       if (key == '2021-01-31') {
         listaskmonth.add(DetailChartModel('1', value));
@@ -92,41 +105,38 @@ class _DetailChartMonthViewState extends BaseBlocState<DetailChartMonthView> {
       if (key == '2021-06-30') {
         listaskmonth.add(DetailChartModel('6', value));
       }
-      if (key == '2021-07-27') {
-        listaskmonth.add(DetailChartModel('7', value));
-      }
+      // if (key == '2021-07-27') {
+      //   listaskmonth.add(DetailChartModel('7', value));
+      // }
     });
+
     listaskmonth = listaskmonth.reversed.toList();
     listask = listask.reversed.toList();
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          bottom: TabBar(
-            indicatorColor: Colors.black,
-            indicatorWeight: 4,
-            unselectedLabelColor: Colors.grey,
-            tabs: [
-              Tab(
-                child: Container(
-                  child: Text(
-                    '2020',
-                    style: TextStyle(color: Colors.black, fontSize: 18.0),
-                  ),
+        appBar: TabBar(
+          indicatorColor: Colors.black,
+          indicatorWeight: 4,
+          unselectedLabelColor: Colors.grey,
+          tabs: [
+            Tab(
+              child: Container(
+                child: Text(
+                  '2020',
+                  style: TextStyle(color: Colors.black, fontSize: 18.0),
                 ),
               ),
-              Tab(
-                child: Container(
-                  child: Text(
-                    '2021',
-                    style: TextStyle(color: Colors.black, fontSize: 18.0),
-                  ),
+            ),
+            Tab(
+              child: Container(
+                child: Text(
+                  '2021',
+                  style: TextStyle(color: Colors.black, fontSize: 18.0),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         body: TabBarView(
           children: [
@@ -162,7 +172,7 @@ class _DetailChartMonthViewState extends BaseBlocState<DetailChartMonthView> {
                               series: [
                                 ColumnSeries<DetailChartModel, String>(
                                   dataSource: listask,
-                                  name: 'Covid-19',
+                                  name: state.covidModel?.All.country,
                                   xValueMapper: (DetailChartModel data, _) =>
                                       data.date,
                                   yValueMapper: (DetailChartModel data, _) =>
@@ -213,7 +223,7 @@ class _DetailChartMonthViewState extends BaseBlocState<DetailChartMonthView> {
                               series: [
                                 ColumnSeries<DetailChartModel, String>(
                                   dataSource: listaskmonth,
-                                  name: 'Covid-19',
+                                  name: state.covidModel?.All.country,
                                   xValueMapper: (DetailChartModel data, _) =>
                                       data.date,
                                   yValueMapper: (DetailChartModel data, _) =>

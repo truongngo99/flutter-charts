@@ -29,6 +29,13 @@ class PageViewScreen extends StatefulWidget {
 }
 
 class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
+  late ZoomPanBehavior _zoomPanBehavior;
+  @override
+  void initState() {
+    _zoomPanBehavior = ZoomPanBehavior(enableMouseWheelZooming: true);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
           providers: [
@@ -201,11 +208,10 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                             child: Container(
                                 width: MediaQuery.of(context).size.width * 0.85,
                                 child: SfCartesianChart(
-                                  // zoomPanBehavior: ZoomPanBehavior(
-                                  //   enablePinching: true,
-                                  //   zoomMode: ZoomMode.x,
-                                  //   enablePanning: true,
-                                  // ),
+                                  zoomPanBehavior: ZoomPanBehavior(
+                                    enablePinching: true,
+                                  ),
+
                                   legend: Legend(
                                       isVisible: true,
                                       iconHeight: 10,
@@ -240,6 +246,10 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       DetailChartView(
+                                                        country: state
+                                                            .covidModel!
+                                                            .All
+                                                            .country,
                                                         title: 'Confirmed',
                                                         code: state
                                                                 .covidModel
@@ -255,6 +265,10 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       DetailChartView(
+                                                        country: state
+                                                            .covidModel!
+                                                            .All
+                                                            .country,
                                                         title: 'Recovered ',
                                                         code: state
                                                                 .covidModel
@@ -270,6 +284,10 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       DetailChartView(
+                                                        country: state
+                                                            .covidModel!
+                                                            .All
+                                                            .country,
                                                         title: 'Deaths',
                                                         code: state
                                                                 .covidModel
@@ -282,7 +300,7 @@ class _PageViewScreenState extends BaseBlocState<PageViewScreen> {
                                         // print(details.seriesIndex);
                                       },
                                       dataSource: listData,
-                                      name: 'Covid-19',
+                                      name: state.covidModel?.All.country,
                                       dataLabelSettings: DataLabelSettings(
                                         isVisible: true,
                                         labelAlignment:

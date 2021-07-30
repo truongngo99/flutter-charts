@@ -13,9 +13,14 @@ import 'package:teq_flutter_core/teq_flutter_core.dart';
 class DetailChartView extends StatefulWidget {
   final String title;
   final String code;
+  final String country;
   final String status;
   DetailChartView(
-      {Key? key, required this.code, required this.status, required this.title})
+      {Key? key,
+      required this.code,
+      required this.status,
+      required this.title,
+      required this.country})
       : super(key: key);
 
   @override
@@ -39,7 +44,7 @@ class _DetailChartViewState extends BaseBlocState<DetailChartView> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text('${widget.country} COVID-19 ${widget.title} '),
           backgroundColor: widget.status == 'confirmed'
               ? Colors.green
               : widget.status == 'recovered'

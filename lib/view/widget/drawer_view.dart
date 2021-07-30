@@ -64,6 +64,9 @@ class DrawerView extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => WebViewScreen()));
           },
         ),
+        Divider(
+          thickness: 1,
+        ),
         Expanded(
           child: ListView.builder(
               itemCount: listChart.data.length,
